@@ -16,6 +16,7 @@ class LoginPage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           children: [
+            const Spacer(flex: 1),
             Image.asset(
               Strings.logoPath,
               height: 60,
@@ -25,20 +26,29 @@ class LoginPage extends StatelessWidget {
               style: Styles.whiteFont
                   .copyWith(fontSize: 23, fontFamily: Strings.fontFamily),
             ),
-            Text(
-              'Sign In ',
-              style: Styles.whiteFont.copyWith(fontSize: 18),
+            const Spacer(flex: 2),
+            Row(
+              children: [
+                Text(
+                  'Sign In ',
+                  style: Styles.whiteFont.copyWith(fontSize: 20),
+                ),
+              ],
             ),
+            const SizedBox(height: 20),
             const CustomTextField(
               hintText: 'Email',
             ),
+            const SizedBox(height: 10),
             const CustomTextField(
               hintText: 'Password',
             ),
+            const SizedBox(height: 20),
             CustomButton(
               buttonName: 'Sign In',
               onTap: () {},
             ),
+            const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -57,7 +67,8 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
               ],
-            )
+            ),
+            const Spacer(flex: 2),
           ],
         ),
       )),
