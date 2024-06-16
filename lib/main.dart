@@ -1,4 +1,6 @@
+import 'package:chat_app/core/constants/strings.dart';
 import 'package:chat_app/pages/login_page.dart';
+import 'package:chat_app/pages/sign_up_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,9 +12,13 @@ class ChatApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+      initialRoute: Strings.signUpPage,
+      routes: {
+        Strings.signUpPage: (context) => const SignUpPage(),
+        Strings.loginPage: (context) => const LoginPage(),
+      },
     );
   }
 }

@@ -1,12 +1,12 @@
-import 'package:chat_app/core/constants/Strings.dart';
+import 'package:chat_app/core/constants/strings.dart';
 import 'package:chat_app/core/constants/styles.dart';
 import 'package:chat_app/core/shared/custom_button.dart';
 import 'package:chat_app/core/shared/custom_text_field.dart';
-import 'package:chat_app/pages/sign_up_page.dart';
+import 'package:chat_app/pages/login_page.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class SignUpPage extends StatelessWidget {
+  const SignUpPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class LoginPage extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  'Login',
+                  'Register',
                   style: Styles.whiteFont.copyWith(fontSize: 20),
                 ),
               ],
@@ -46,7 +46,7 @@ class LoginPage extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             CustomButton(
-              buttonName: 'Sign In',
+              buttonName: 'Sign Up',
               onTap: () {},
             ),
             const SizedBox(height: 10),
@@ -54,17 +54,17 @@ class LoginPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
-                  'Don\'t have an account? ',
+                  'Already have an account? ',
                   style: Styles.whiteFont,
                 ),
                 GestureDetector(
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const SignUpPage(),
+                      builder: (context) => const LoginPage(),
                     ));
                   },
                   child: Text(
-                    'Sign Up',
+                    'Login',
                     style: Styles.whiteFont.copyWith(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,

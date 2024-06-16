@@ -16,12 +16,12 @@ class CustomButton extends StatelessWidget {
           color: Colors.white,
           borderRadius: BorderRadius.circular(8),
         ),
-        child: const Row(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Sign In',
-              style: TextStyle(
+              buttonName,
+              style: const TextStyle(
                 color: Colors.black,
                 fontSize: 16,
               ),
