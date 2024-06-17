@@ -1,17 +1,17 @@
-import 'package:chat_app/core/constants/Strings.dart';
+import 'package:chat_app/core/constants/strings.dart';
 import 'package:chat_app/core/constants/styles.dart';
-import 'package:chat_app/core/shared/custom_button.dart';
-import 'package:chat_app/core/shared/custom_text_field.dart';
-import 'package:chat_app/pages/sign_up_page.dart';
+import 'package:chat_app/core/shared/widgets/custom_button.dart';
+import 'package:chat_app/core/shared/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
+  static const String id = 'loginPage';
   const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 29, 150, 121),
+      backgroundColor: Strings.kPrimaryColor,
       body: SafeArea(
           child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -25,7 +25,7 @@ class LoginPage extends StatelessWidget {
             Text(
               'Friends Chat',
               style: Styles.whiteFont
-                  .copyWith(fontSize: 23, fontFamily: Strings.fontFamily),
+                  .copyWith(fontSize: 23, fontFamily: Strings.playWrite),
             ),
             const Spacer(flex: 2),
             Row(
@@ -39,10 +39,12 @@ class LoginPage extends StatelessWidget {
             const SizedBox(height: 20),
             const CustomTextField(
               hintText: 'Email',
+              obscureText: false,
             ),
             const SizedBox(height: 10),
             const CustomTextField(
               hintText: 'Password',
+              obscureText: true,
             ),
             const SizedBox(height: 20),
             CustomButton(
@@ -59,9 +61,7 @@ class LoginPage extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const SignUpPage(),
-                    ));
+                    Navigator.pop(context);
                   },
                   child: Text(
                     'Sign Up',

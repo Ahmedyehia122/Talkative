@@ -1,17 +1,22 @@
 import 'package:chat_app/core/constants/strings.dart';
 import 'package:chat_app/core/constants/styles.dart';
-import 'package:chat_app/core/shared/custom_button.dart';
-import 'package:chat_app/core/shared/custom_text_field.dart';
+import 'package:chat_app/core/shared/functions/custom_snack_bar.dart';
+import 'package:chat_app/core/shared/widgets/custom_button.dart';
+import 'package:chat_app/core/shared/widgets/custom_text_field.dart';
 import 'package:chat_app/pages/login_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SignUpPage extends StatelessWidget {
-  const SignUpPage({super.key});
+  static const String id = 'signUpPage';
+  String? email;
+  String? password;
+  SignUpPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 29, 150, 121),
+      backgroundColor: Strings.kPrimaryColor,
       body: SafeArea(
           child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -25,7 +30,7 @@ class SignUpPage extends StatelessWidget {
             Text(
               'Friends Chat',
               style: Styles.whiteFont
-                  .copyWith(fontSize: 23, fontFamily: Strings.fontFamily),
+                  .copyWith(fontSize: 23, fontFamily: Strings.playWrite),
             ),
             const Spacer(flex: 2),
             Row(
@@ -37,17 +42,45 @@ class SignUpPage extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 20),
-            const CustomTextField(
+            CustomTextField(
               hintText: 'Email',
+              obscureText: false,
+              onChanged: (p0) {
+                email = p0;
+              },
             ),
             const SizedBox(height: 10),
-            const CustomTextField(
+            CustomTextField(
               hintText: 'Password',
+              obscureText: true,
+              onChanged: (p0) {
+                password = p0;
+              },
             ),
             const SizedBox(height: 20),
             CustomButton(
               buttonName: 'Sign Up',
-              onTap: () {},
+              onTap: () async {
+                try {
+                  await registerUser();
+                } on FirebaseAuthException catch (e) {
+                  if (e.code == 'weak-password') {
+                    print('The password provided is too weak.');
+                    showSnackBar(context, 'The password provided is too weak.');
+                  } else if (e.code == 'email-already-in-use') {
+                    print('The account already exists for that email.');
+                    showSnackBar(
+                        context, 'The account already exists for that email.');
+                  }
+                } catch (e) {
+                  print(e);
+                  showSnackBar(
+                    context,
+                    e.toString(),
+                  );
+                }
+                showSnackBar(context, 'Success'); 
+              },
             ),
             const SizedBox(height: 10),
             Row(
@@ -59,9 +92,7 @@ class SignUpPage extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const LoginPage(),
-                    ));
+                    Navigator.of(context).pushNamed(LoginPage.id);
                   },
                   child: Text(
                     'Login',
@@ -77,6 +108,14 @@ class SignUpPage extends StatelessWidget {
           ],
         ),
       )),
+    );
+  }
+
+  Future<void> registerUser() async {
+         final credential = await FirebaseAuth.instance
+        .createUserWithEmailAndPassword(
+      email: email!,
+      password: password!,
     );
   }
 }
