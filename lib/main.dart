@@ -1,4 +1,5 @@
 import 'package:chat_app/firebase_options.dart';
+import 'package:chat_app/pages/chast_page.dart';
 import 'package:chat_app/pages/login_page.dart';
 import 'package:chat_app/pages/sign_up_page.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -23,6 +24,7 @@ class ChatApp extends StatelessWidget {
       routes: {
         SignUpPage.id: (context) => SignUpPage(),
         LoginPage.id: (context) => LoginPage(),
+        ChatPage.id: (context) => ChatPage(),
       },
     );
   }

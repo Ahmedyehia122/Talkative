@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:chat_app/core/constants/strings.dart';
 import 'package:flutter/material.dart';
 
 import 'package:chat_app/core/constants/styles.dart';
@@ -8,21 +9,25 @@ class CustomTextField extends StatelessWidget {
   final TextInputType? keyboardType;
   final bool obscureText;
   final void Function(String)? onChanged;
+  final String? Function(String?)? validator;
   const CustomTextField({
     Key? key,
     required this.hintText,
     this.keyboardType,
     required this.obscureText,
     this.onChanged,
+    this.validator,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      onChanged: onChanged,
+    return TextFormField(
       cursorColor: Colors.white,
+      style: const TextStyle(color: Colors.white),
       keyboardType: keyboardType,
       obscureText: obscureText,
+      onChanged: onChanged,
+      validator: validator,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: Styles.whiteFont,
