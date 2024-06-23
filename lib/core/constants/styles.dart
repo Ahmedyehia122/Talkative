@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
 
-class Styles {
+class AppStyles {
   static const whiteFont = TextStyle(color: Colors.white);
 }

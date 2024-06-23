@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:chat_app/core/constants/strings.dart';
 import 'package:flutter/material.dart';
 
 import 'package:chat_app/core/constants/styles.dart';
@@ -30,7 +29,7 @@ class CustomTextField extends StatelessWidget {
       validator: validator,
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: Styles.whiteFont,
+        hintStyle: AppStyles.whiteFont,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(3),
           borderSide: const BorderSide(

@@ -1,10 +1,12 @@
-import 'package:chat_app/core/constants/strings.dart';
+import 'package:chat_app/core/constants/colors.dart';
+import 'package:chat_app/core/constants/fonts.dart';
+import 'package:chat_app/core/constants/images.dart';
 import 'package:chat_app/core/constants/styles.dart';
-import 'package:chat_app/core/shared/functions/custom_snack_bar.dart';
-import 'package:chat_app/core/shared/functions/validate_text_fields.dart';
-import 'package:chat_app/core/shared/widgets/custom_button.dart';
-import 'package:chat_app/core/shared/widgets/custom_text_field.dart';
-import 'package:chat_app/pages/chast_page.dart';
+import 'package:chat_app/core/functions/custom_snack_bar.dart';
+import 'package:chat_app/core/functions/validate_text_fields.dart';
+import 'package:chat_app/core/customs/custom_button.dart';
+import 'package:chat_app/core/customs/custom_text_field.dart';
+import 'package:chat_app/pages/chat_page.dart';
 import 'package:chat_app/pages/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +34,7 @@ class _SignUpPageState extends State<SignUpPage> {
     return ModalProgressHUD(
       inAsyncCall: isLoading,
       child: Scaffold(
-        backgroundColor: Strings.kPrimaryColor,
+        backgroundColor: AppColors.kPrimaryColor,
         body: SafeArea(
             child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -42,14 +44,14 @@ class _SignUpPageState extends State<SignUpPage> {
               children: [
                 const Spacer(flex: 1),
                 Image.asset(
-                  Strings.logoPath,
+                  AppImages.logoPath,
                   height: 60,
                 ),
                 Text(
                   'Friends Chat',
-                  style: Styles.whiteFont.copyWith(
+                  style: AppStyles.whiteFont.copyWith(
                     fontSize: 23,
-                    fontFamily: Strings.playWrite,
+                    fontFamily: AppFonts.playWrite,
                   ),
                 ),
                 const Spacer(flex: 2),
@@ -57,7 +59,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   children: [
                     Text(
                       'Register',
-                      style: Styles.whiteFont.copyWith(fontSize: 20),
+                      style: AppStyles.whiteFont.copyWith(fontSize: 20),
                     ),
                   ],
                 ),
@@ -120,7 +122,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   children: [
                     const Text(
                       'Already have an account? ',
-                      style: Styles.whiteFont,
+                      style: AppStyles.whiteFont,
                     ),
                     GestureDetector(
                       onTap: () {
@@ -128,7 +130,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       },
                       child: Text(
                         'Login',
-                        style: Styles.whiteFont.copyWith(
+                        style: AppStyles.whiteFont.copyWith(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
