@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 
-class FloatingButton extends StatelessWidget {
-  const FloatingButton({super.key});
+class CustomTextFormField extends StatelessWidget {
+  const CustomTextFormField({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 30),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       child: TextFormField(
         decoration: InputDecoration(
-          suffixIcon:
-              IconButton(onPressed: () {}, icon: const Icon(Icons.send)),
+          hintText: 'send message',
+          suffixIcon: IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.send),
+          ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
           ),

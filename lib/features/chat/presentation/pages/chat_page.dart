@@ -1,6 +1,8 @@
+import 'package:chat_app/core/constants/colors.dart';
 import 'package:chat_app/core/constants/images.dart';
 import 'package:chat_app/core/constants/styles.dart';
-import 'package:chat_app/widgets/floating_button.dart';
+import 'package:chat_app/core/customs/custom_chat_bubble.dart';
+import 'package:chat_app/features/chat/presentation/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 
 class ChatPage extends StatelessWidget {
@@ -10,11 +12,9 @@ class ChatPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: const FloatingButton(),
       appBar: AppBar(
-        backgroundColor: Colors.teal,
-        leading: const SizedBox(),
-        leadingWidth: 0,
+        backgroundColor: AppColors.kPrimaryColor,
+        automaticallyImplyLeading: false,
         centerTitle: true,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -33,6 +33,19 @@ class ChatPage extends StatelessWidget {
             ),
           ],
         ),
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              itemCount: 10,
+              itemBuilder: (BuildContext context, int index) {
+                return const CustomChatBubble();
+              },
+            ),
+          ),
+          const CustomTextFormField()
+        ],
       ),
     );
   }

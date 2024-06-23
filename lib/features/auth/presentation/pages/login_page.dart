@@ -6,7 +6,7 @@ import 'package:chat_app/core/functions/custom_snack_bar.dart';
 import 'package:chat_app/core/functions/validate_text_fields.dart';
 import 'package:chat_app/core/customs/custom_button.dart';
 import 'package:chat_app/core/customs/custom_text_field.dart';
-import 'package:chat_app/pages/chat_page.dart';
+import 'package:chat_app/features/chat/presentation/pages/chat_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -92,8 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                         setState(() {});
                         try {
                           await signInUser();
-                          showSnackBar(context, 'Sucess');
-                          print('success');
+
                           Navigator.of(context)
                               .pushReplacementNamed(ChatPage.id);
                         } on FirebaseAuthException catch (e) {
