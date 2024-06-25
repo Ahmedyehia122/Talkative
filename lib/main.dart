@@ -10,11 +10,11 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const ChatApp());
+  runApp(const TalkativeApp());
 }
 
-class ChatApp extends StatelessWidget {
-  const ChatApp({super.key});
+class TalkativeApp extends StatelessWidget {
+  const TalkativeApp({super.key});
 
   @override
   Widget build(BuildContext context) {

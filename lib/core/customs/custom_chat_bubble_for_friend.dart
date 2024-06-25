@@ -23,7 +23,7 @@ class CustomChatBubbleForFriend extends StatelessWidget {
           bottom: 15.h,
         ),
         decoration: BoxDecoration(
-          color: Colors.amber,
+          color: Colors.green,
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(2.r),
             bottomRight: Radius.circular(30.r),
