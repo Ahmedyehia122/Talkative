@@ -10,6 +10,7 @@ import 'package:chat_app/features/chat/presentation/pages/chat_page.dart';
 import 'package:chat_app/features/auth/presentation/pages/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -37,7 +38,7 @@ class _SignUpPageState extends State<SignUpPage> {
         backgroundColor: AppColors.kPrimaryColor,
         body: SafeArea(
             child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          padding: EdgeInsets.symmetric(horizontal: 10.h),
           child: Form(
             key: formState,
             child: Column(
@@ -45,12 +46,12 @@ class _SignUpPageState extends State<SignUpPage> {
                 const Spacer(flex: 1),
                 Image.asset(
                   AppImages.logoPath,
-                  height: 60,
+                  height: 60.h,
                 ),
                 Text(
                   'Friends Chat',
                   style: AppStyles.whiteFont.copyWith(
-                    fontSize: 23,
+                    fontSize: 23.sp,
                     fontFamily: AppFonts.playWrite,
                   ),
                 ),
@@ -59,11 +60,13 @@ class _SignUpPageState extends State<SignUpPage> {
                   children: [
                     Text(
                       'Register',
-                      style: AppStyles.whiteFont.copyWith(fontSize: 20),
+                      style: AppStyles.whiteFont.copyWith(
+                        fontSize: 20.sp,
+                      ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: 20.sp),
                 CustomTextField(
                   hintText: 'Email',
                   obscureText: false,
@@ -74,7 +77,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     return validateTextFields(value!, 'email');
                   },
                 ),
-                const SizedBox(height: 10),
+                SizedBox(height: 10.h),
                 CustomTextField(
                   hintText: 'Password',
                   obscureText: true,
@@ -85,7 +88,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     return validateTextFields(value!, 'password');
                   },
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: 20.h),
                 CustomButton(
                   buttonName: 'Sign Up',
                   onTap: () async {
@@ -95,7 +98,10 @@ class _SignUpPageState extends State<SignUpPage> {
                       try {
                         await registerUser();
 
-                        Navigator.of(context).pushReplacementNamed(ChatPage.id);
+                        Navigator.of(context).pushReplacementNamed(
+                          ChatPage.id,
+                          arguments: email,
+                        );
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'weak-password') {
                           showSnackBar(
@@ -115,7 +121,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     } else {}
                   },
                 ),
-                const SizedBox(height: 10),
+                SizedBox(height: 10.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -130,7 +136,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       child: Text(
                         'Login',
                         style: AppStyles.whiteFont.copyWith(
-                          fontSize: 16,
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

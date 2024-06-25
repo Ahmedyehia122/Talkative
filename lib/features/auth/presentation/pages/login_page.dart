@@ -9,6 +9,7 @@ import 'package:chat_app/core/customs/custom_text_field.dart';
 import 'package:chat_app/features/chat/presentation/pages/chat_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class LoginPage extends StatefulWidget {
@@ -49,19 +50,23 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   Text(
                     'Friends Chat',
-                    style: AppStyles.whiteFont
-                        .copyWith(fontSize: 23, fontFamily: AppFonts.playWrite),
+                    style: AppStyles.whiteFont.copyWith(
+                      fontSize: 23.sp,
+                      fontFamily: AppFonts.playWrite,
+                    ),
                   ),
                   const Spacer(flex: 2),
                   Row(
                     children: [
                       Text(
                         'Login',
-                        style: AppStyles.whiteFont.copyWith(fontSize: 20),
+                        style: AppStyles.whiteFont.copyWith(
+                          fontSize: 20.sp,
+                        ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20.h),
                   CustomTextField(
                     hintText: 'Email',
                     obscureText: false,
@@ -72,7 +77,7 @@ class _LoginPageState extends State<LoginPage> {
                       return validateTextFields(value!, 'email');
                     },
                   ),
-                  const SizedBox(height: 10),
+                  SizedBox(height: 10.h),
                   CustomTextField(
                     hintText: 'Password',
                     obscureText: true,
@@ -83,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                       return validateTextFields(value!, 'password');
                     },
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20.h),
                   CustomButton(
                     buttonName: 'Sign In',
                     onTap: () async {
@@ -93,8 +98,9 @@ class _LoginPageState extends State<LoginPage> {
                         try {
                           await signInUser();
 
-                          Navigator.of(context)
-                              .pushReplacementNamed(ChatPage.id);
+                          Navigator.of(context).pushReplacementNamed(
+                              ChatPage.id,
+                              arguments: email);
                         } on FirebaseAuthException catch (e) {
                           if (e.code == 'user-not-found') {
                             print('No user found for that email.');
@@ -114,7 +120,7 @@ class _LoginPageState extends State<LoginPage> {
                       } else {}
                     },
                   ),
-                  const SizedBox(height: 10),
+                  SizedBox(height: 10.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -129,7 +135,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: Text(
                           'Sign Up',
                           style: AppStyles.whiteFont.copyWith(
-                            fontSize: 16,
+                            fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

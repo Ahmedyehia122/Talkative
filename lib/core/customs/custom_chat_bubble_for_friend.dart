@@ -1,17 +1,16 @@
-import 'package:chat_app/core/constants/colors.dart';
 import 'package:chat_app/core/constants/fonts.dart';
 import 'package:chat_app/features/chat/data/models/message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CustomChatBubble extends StatelessWidget {
+class CustomChatBubbleForFriend extends StatelessWidget {
   final Message message;
-  const CustomChatBubble({super.key, required this.message});
+  const CustomChatBubbleForFriend({super.key, required this.message});
 
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: Alignment.centerRight,
+      alignment: Alignment.centerLeft,
       child: Container(
         margin: EdgeInsets.symmetric(
           horizontal: 20.w,
@@ -24,10 +23,10 @@ class CustomChatBubble extends StatelessWidget {
           bottom: 15.h,
         ),
         decoration: BoxDecoration(
-          color: AppColors.kPrimaryColor,
+          color: Colors.amber,
           borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(30.r),
-            bottomRight: Radius.circular(2.r),
+            bottomLeft: Radius.circular(2.r),
+            bottomRight: Radius.circular(30.r),
             topRight: Radius.circular(30.r),
             topLeft: Radius.circular(30.r),
           ),

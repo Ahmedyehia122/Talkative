@@ -3,22 +3,28 @@ import 'package:chat_app/core/constants/images.dart';
 import 'package:chat_app/core/constants/strings.dart';
 import 'package:chat_app/core/constants/styles.dart';
 import 'package:chat_app/core/customs/custom_chat_bubble.dart';
+import 'package:chat_app/core/customs/custom_chat_bubble_for_friend.dart';
 import 'package:chat_app/features/chat/data/models/message.dart';
 import 'package:chat_app/features/chat/presentation/widgets/custom_text_form_field.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ChatPage extends StatelessWidget {
   static String id = 'chatPage';
 
   ChatPage({super.key});
-  CollectionReference messages =
+  final CollectionReference messages =
       FirebaseFirestore.instance.collection(AppStrings.kMessagesCollection);
+  final ScrollController controller = ScrollController();
 
   @override
   Widget build(BuildContext context) {
+    var email = ModalRoute.of(context)!.settings.arguments;
+
     return StreamBuilder<QuerySnapshot>(
-      stream: messages.snapshots(),
+      stream:
+          messages.orderBy(AppStrings.kCreatedAt, descending: true).snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<Message> messagesList = [];
@@ -37,8 +43,8 @@ class ChatPage extends StatelessWidget {
                 children: [
                   Image.asset(
                     AppImages.logoPath,
-                    height: 25,
-                    width: 25,
+                    height: 25.h,
+                    width: 25.w,
                   ),
                   const SizedBox(
                     width: 5,
@@ -54,15 +60,24 @@ class ChatPage extends StatelessWidget {
               children: [
                 Expanded(
                   child: ListView.builder(
+                    reverse: true,
+                    controller: controller,
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return CustomChatBubble(
-                        message: messagesList[index],
-                      );
+                      return messagesList[index].id == email
+                          ? CustomChatBubble(
+                              message: messagesList[index],
+                            )
+                          : CustomChatBubbleForFriend(
+                              message: messagesList[index],
+                            );
                     },
                   ),
                 ),
-                CustomTextFormField()
+                CustomTextFormField(
+                  controller: controller,
+                  email: email,
+                )
               ],
             ),
           );
