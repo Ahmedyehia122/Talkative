@@ -6,5 +6,5 @@ import 'package:flutter/material.dart';
 Map<String, Widget Function(BuildContext)> routes = {
   SignUpPage.id: (context) => const SignUpPage(),
   LoginPage.id: (context) => const LoginPage(),
-  ChatPage.id: (context) => const ChatPage(),
+  ChatPage.id: (context) => ChatPage(),
 };
