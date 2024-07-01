@@ -1,4 +1,4 @@
-# 😊 Chat App
+# 😊 Talkative 
 
  Seamlessly connect with friends and new contacts through our user-friendly chat platform. Log in with your email and start engaging in enriching conversations.
  
