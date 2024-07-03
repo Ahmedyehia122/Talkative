@@ -5,8 +5,14 @@
  <br/>
 
   ## 🚀 Getting Started
-  
-   ## 📸 Screen Record
+
+
+   <img src ="https://github.com/Ahmedyehia122/Talkative/assets/142153775/73c9128b-9fc3-416f-90d5-d529960ad8a8"   >
+
+   <br/>
+
+   
+  ## 📸 Screen Record
  
 <video src="https://github.com/Ahmedyehia122/Talkative-/assets/142153775/a75c5c86-07d0-4753-9521-68b58eef9102"></video>
 
