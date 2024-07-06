@@ -23,8 +23,10 @@ class CustomTextFormField extends StatelessWidget {
           onPressed: () {
             if (messageController!.text.isNotEmpty) {
               BlocProvider.of<ChatCubit>(context).getMessages();
-              BlocProvider.of<ChatCubit>(context)
-                  .sendMesssage(message: messageController!.text, email: email);
+              BlocProvider.of<ChatCubit>(context).sendMesssage(
+                message: messageController!.text,
+                email: email,
+              );
               messageController!.clear();
               controller!.animateTo(
                 0,
