@@ -1,6 +1,4 @@
-import 'package:chat_app/core/constants/strings.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CustomTextFormField extends StatelessWidget {
   CustomTextFormField({
@@ -8,8 +6,7 @@ class CustomTextFormField extends StatelessWidget {
     required this.controller,
     required this.email,
   });
-  final CollectionReference messages =
-      FirebaseFirestore.instance.collection(AppStrings.kMessagesCollection);
+
   final TextEditingController? messageController = TextEditingController();
   ScrollController? controller;
   final dynamic email;
@@ -24,14 +21,7 @@ class CustomTextFormField extends StatelessWidget {
           hintText: 'send message',
           suffixIcon: IconButton(
             onPressed: () {
-              if (messageController!.text.isNotEmpty) { 
-                messages.add(
-                  {
-                    AppStrings.kMessage: messageController!.text,
-                    AppStrings.kCreatedAt: DateTime.now(),
-                    'id': email,
-                  },
-                );
+              if (messageController!.text.isNotEmpty) {
                 messageController!.clear();
                 controller!.animateTo(
                   0,
