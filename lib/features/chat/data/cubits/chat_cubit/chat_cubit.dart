@@ -29,7 +29,7 @@ class ChatCubit extends Cubit<ChatState> {
         .snapshots()
         .listen(
       (event) {
-        messagesList = [];
+        messagesList.clear();
         for (var doc in event.docs) {
           messagesList.add(Message.fromJosn(doc));
         }
