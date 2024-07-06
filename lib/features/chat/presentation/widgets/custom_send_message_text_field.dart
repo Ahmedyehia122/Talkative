@@ -2,8 +2,8 @@ import 'package:chat_app/features/chat/data/cubits/chat_cubit/chat_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CustomTextFormField extends StatelessWidget {
-  CustomTextFormField({
+class CustomSendMessageTextField extends StatelessWidget {
+  CustomSendMessageTextField({
     super.key,
     required this.controller,
     required this.email,

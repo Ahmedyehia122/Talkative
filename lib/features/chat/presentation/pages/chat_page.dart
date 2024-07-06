@@ -4,7 +4,7 @@ import 'package:chat_app/core/constants/styles.dart';
 import 'package:chat_app/core/customs/custom_chat_bubble.dart';
 import 'package:chat_app/core/customs/custom_chat_bubble_for_friend.dart';
 import 'package:chat_app/features/chat/data/cubits/chat_cubit/chat_cubit.dart';
-import 'package:chat_app/features/chat/presentation/widgets/custom_text_form_field.dart';
+import 'package:chat_app/features/chat/presentation/widgets/custom_send_message_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -67,7 +67,7 @@ class ChatPage extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.w),
-            child: CustomTextFormField(
+            child: CustomSendMessageTextField(
               controller: controller,
               email: email,
             ),
