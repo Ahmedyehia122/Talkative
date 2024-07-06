@@ -1,13 +1,12 @@
 import 'package:chat_app/core/constants/colors.dart';
 import 'package:chat_app/core/constants/fonts.dart';
 import 'package:chat_app/core/constants/images.dart';
+import 'package:chat_app/core/constants/routes.dart';
 import 'package:chat_app/core/constants/styles.dart';
 import 'package:chat_app/core/functions/custom_snack_bar.dart';
 import 'package:chat_app/core/functions/validate_text_fields.dart';
 import 'package:chat_app/core/customs/custom_button.dart';
 import 'package:chat_app/core/customs/custom_text_field.dart';
-import 'package:chat_app/features/chat/presentation/pages/chat_page.dart';
-import 'package:chat_app/features/auth/presentation/pages/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -99,7 +98,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         await registerUser();
 
                         Navigator.of(context).pushReplacementNamed(
-                          ChatPage.id,
+                          AppRoutes.chatPage,
                           arguments: email,
                         );
                       } on FirebaseAuthException catch (e) {
@@ -131,7 +130,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.of(context).pushNamed(LoginPage.id);
+                        Navigator.of(context).pushNamed(AppRoutes.loginPage);
                       },
                       child: Text(
                         'Login',

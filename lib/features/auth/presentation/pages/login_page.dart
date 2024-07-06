@@ -1,13 +1,13 @@
 import 'package:chat_app/core/constants/colors.dart';
 import 'package:chat_app/core/constants/fonts.dart';
 import 'package:chat_app/core/constants/images.dart';
+import 'package:chat_app/core/constants/routes.dart';
 import 'package:chat_app/core/constants/styles.dart';
 import 'package:chat_app/core/functions/custom_snack_bar.dart';
 import 'package:chat_app/core/functions/validate_text_fields.dart';
 import 'package:chat_app/core/customs/custom_button.dart';
 import 'package:chat_app/core/customs/custom_text_field.dart';
 import 'package:chat_app/features/auth/data/cubits/login_cubit/login_cubit.dart';
-import 'package:chat_app/features/chat/presentation/pages/chat_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,7 +16,6 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
-  static const String id = 'loginPage';
 
   String? email;
 
@@ -28,18 +27,20 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<LoginCubit, LoginState>(
+    return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state is LoginLoadingState) {
           isLoading = true;
         } else if (state is LoginSuccessState) {
           Navigator.of(context)
-              .pushReplacementNamed(ChatPage.id, arguments: email);
+              .pushReplacementNamed(AppRoutes.chatPage, arguments: email);
+          isLoading = false;
         } else if (state is LoginFailureState) {
-          showSnackBar(context, 'Somethimg went wrong, try again later');
+          showSnackBar(context, state.errMessage);
+          isLoading = false;
         }
       },
-      child: ModalProgressHUD(
+      builder: (context, state) => ModalProgressHUD(
         inAsyncCall: isLoading,
         child: Scaffold(
           backgroundColor: AppColors.kPrimaryColor,
@@ -100,29 +101,31 @@ class LoginPage extends StatelessWidget {
                       buttonName: 'Sign In',
                       onTap: () async {
                         if (formState.currentState!.validate()) {
-                          isLoading = true;
+                          BlocProvider.of<LoginCubit>(context)
+                              .signInUser(email!, password!);
+                          // isLoading = true;
 
-                          try {
-                            await signInUser();
+                          // try {
+                          //   await signInUser();
 
-                            Navigator.of(context).pushReplacementNamed(
-                                ChatPage.id,
-                                arguments: email);
-                          } on FirebaseAuthException catch (e) {
-                            if (e.code == 'user-not-found') {
-                              print('No user found for that email.');
-                              showSnackBar(
-                                  context, 'No user found for that email.');
-                            } else if (e.code == 'wrong-password') {
-                              print('Wrong password provided for that user.');
-                              showSnackBar(context,
-                                  'Wrong password provided for that user.');
-                            }
-                          } catch (e) {
-                            showSnackBar(context,
-                                'There was an error, Please try again later!');
-                          }
-                          isLoading = false;
+                          //   Navigator.of(context).pushReplacementNamed(
+                          //       AppRoutes.chatPage,
+                          //       arguments: email);
+                          // } on FirebaseAuthException catch (e) {
+                          //   if (e.code == 'user-not-found') {
+                          //     print('No user found for that email.');
+                          //     showSnackBar(
+                          //         context, 'No user found for that email.');
+                          //   } else if (e.code == 'wrong-password') {
+                          //     print('Wrong password provided for that user.');
+                          //     showSnackBar(context,
+                          //         'Wrong password provided for that user.');
+                          //   }
+                          // } catch (e) {
+                          //   showSnackBar(context,
+                          //       'There was an error, Please try again later!');
+                          // }
+                          // isLoading = false;
                         } else {}
                       },
                     ),
