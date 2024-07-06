@@ -1,11 +1,14 @@
 import 'package:chat_app/core/constants/colors.dart';
 import 'package:chat_app/core/constants/routes.dart';
 import 'package:chat_app/core/constants/styles.dart';
+import 'package:chat_app/core/customs/custom_button.dart';
 import 'package:chat_app/core/customs/custom_logo.dart';
 import 'package:chat_app/core/customs/custom_text.dart';
+import 'package:chat_app/core/customs/custom_text_field.dart';
 import 'package:chat_app/core/functions/custom_snack_bar.dart';
+import 'package:chat_app/core/functions/validate_text_fields.dart';
 import 'package:chat_app/features/auth/data/cubits/login_cubit/login_cubit.dart';
-import 'package:chat_app/features/auth/presentation/widgets/custom_login_fields.dart';
+import 'package:chat_app/features/chat/data/cubits/chat_cubit/chat_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,7 +16,6 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
-
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
 
   final TextEditingController emailController = TextEditingController();
@@ -43,38 +45,70 @@ class LoginPage extends StatelessWidget {
           body: SafeArea(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Column(
-                children: [
-                  const Spacer(flex: 1),
-                  const CustomLogo(),
-                  const Spacer(flex: 2),
-                  const CustomText(textName: 'Login'),
-                  SizedBox(height: 20.h),
-                  CustomLoginfields(),
-                  SizedBox(height: 10.h),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        'Don\'t have an account? ',
-                        style: AppStyles.whiteFont,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Text(
-                          'Sign Up',
-                          style: AppStyles.whiteFont.copyWith(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.bold,
+              child: Form(
+                key: formState,
+                child: Column(
+                  children: [
+                    const Spacer(flex: 1),
+                    const CustomLogo(),
+                    const Spacer(flex: 2),
+                    const CustomText(textName: 'Login'),
+                    SizedBox(height: 20.h),
+                    CustomTextField(
+                      controller: emailController,
+                      hintText: 'Email',
+                      obscureText: false,
+                      validator: (value) {
+                        return validateTextFields(value!, 'email');
+                      },
+                    ),
+                    SizedBox(height: 10.h),
+                    CustomTextField(
+                      controller: padsswordController,
+                      hintText: 'Password',
+                      obscureText: true,
+                      validator: (value) {
+                        return validateTextFields(value!, 'password');
+                      },
+                    ),
+                    SizedBox(height: 20.h),
+                    CustomButton(
+                      buttonName: 'Sign In',
+                      onTap: () async {
+                        if (formState.currentState!.validate()) {
+                          BlocProvider.of<ChatCubit>(context).getMessages();
+                          BlocProvider.of<LoginCubit>(context).signInUser(
+                            emailController.text,
+                            padsswordController.text,
+                          );
+                        } else {}
+                      },
+                    ),
+                    SizedBox(height: 10.h),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'Don\'t have an account? ',
+                          style: AppStyles.whiteFont,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            'Sign Up',
+                            style: AppStyles.whiteFont.copyWith(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  const Spacer(flex: 2),
-                ],
+                      ],
+                    ),
+                    const Spacer(flex: 2),
+                  ],
+                ),
               ),
             ),
           ),
