@@ -1,29 +1,23 @@
 import 'package:chat_app/core/constants/colors.dart';
-import 'package:chat_app/core/constants/fonts.dart';
-import 'package:chat_app/core/constants/images.dart';
 import 'package:chat_app/core/constants/routes.dart';
 import 'package:chat_app/core/constants/styles.dart';
+import 'package:chat_app/core/customs/custom_logo.dart';
+import 'package:chat_app/core/customs/custom_text.dart';
 import 'package:chat_app/core/functions/custom_snack_bar.dart';
-import 'package:chat_app/core/functions/validate_text_fields.dart';
-import 'package:chat_app/core/customs/custom_button.dart';
-import 'package:chat_app/core/customs/custom_text_field.dart';
 import 'package:chat_app/features/auth/data/cubits/sign_up_cubit/sign_up_cubit.dart';
-import 'package:chat_app/features/chat/data/cubits/chat_cubit/chat_cubit.dart';
+import 'package:chat_app/features/auth/presentation/widgets/custom_sign_up_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+class SignUpPage extends StatelessWidget {
+  SignUpPage({super.key});
 
-  @override
-  State<SignUpPage> createState() => _SignUpPageState();
-}
-
-class _SignUpPageState extends State<SignUpPage> {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
+
   final TextEditingController emailController = TextEditingController();
+
   final TextEditingController padsswordController = TextEditingController();
 
   @override
@@ -49,90 +43,38 @@ class _SignUpPageState extends State<SignUpPage> {
             body: SafeArea(
                 child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.h),
-              child: Form(
-                key: formState,
-                child: Column(
-                  children: [
-                    const Spacer(flex: 1),
-                    Image.asset(
-                      AppImages.logoPath,
-                      height: 60.h,
-                    ),
-                    Text(
-                      'Friends Chat',
-                      style: AppStyles.whiteFont.copyWith(
-                        fontSize: 23.sp,
-                        fontFamily: AppFonts.playWrite,
+              child: Column(
+                children: [
+                  const Spacer(flex: 1),
+                  const CustomLogo(),
+                  const Spacer(flex: 2),
+                  const CustomText(textName: 'SignUp'),
+                  SizedBox(height: 20.sp),
+                  CustomSignUpFields(),
+                  SizedBox(height: 10.h),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'Already have an account? ',
+                        style: AppStyles.whiteFont,
                       ),
-                    ),
-                    const Spacer(flex: 2),
-                    Row(
-                      children: [
-                        Text(
-                          'Register',
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pushNamed(AppRoutes.loginPage);
+                        },
+                        child: Text(
+                          'Login',
                           style: AppStyles.whiteFont.copyWith(
-                            fontSize: 20.sp,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 20.sp),
-                    CustomTextField(
-                      controller: emailController,
-                      hintText: 'Email',
-                      obscureText: false,
-                      validator: (value) {
-                        return validateTextFields(value!, 'email');
-                      },
-                    ),
-                    SizedBox(height: 10.h),
-                    CustomTextField(
-                      controller: padsswordController,
-                      hintText: 'Password',
-                      obscureText: true,
-                      validator: (value) {
-                        return validateTextFields(value!, 'password');
-                      },
-                    ),
-                    SizedBox(height: 20.h),
-                    CustomButton(
-                      buttonName: 'Sign Up',
-                      onTap: () async {
-                        if (formState.currentState!.validate()) {
-                          BlocProvider.of<ChatCubit>(context).getMessages();
-                          BlocProvider.of<SignUpCubit>(context).registerUser(
-                            emailController.text,
-                            padsswordController.text,
-                          );
-                        } else {}
-                      },
-                    ),
-                    SizedBox(height: 10.h),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          'Already have an account? ',
-                          style: AppStyles.whiteFont,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.of(context)
-                                .pushNamed(AppRoutes.loginPage);
-                          },
-                          child: Text(
-                            'Login',
-                            style: AppStyles.whiteFont.copyWith(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const Spacer(flex: 2),
-                  ],
-                ),
+                      ),
+                    ],
+                  ),
+                  const Spacer(flex: 2),
+                ],
               ),
             )),
           ),
