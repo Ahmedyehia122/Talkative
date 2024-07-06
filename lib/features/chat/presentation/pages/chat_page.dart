@@ -4,7 +4,6 @@ import 'package:chat_app/core/constants/styles.dart';
 import 'package:chat_app/core/customs/custom_chat_bubble.dart';
 import 'package:chat_app/core/customs/custom_chat_bubble_for_friend.dart';
 import 'package:chat_app/features/chat/data/cubits/chat_cubit/chat_cubit.dart';
-import 'package:chat_app/features/chat/data/models/message.dart';
 import 'package:chat_app/features/chat/presentation/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,7 +13,7 @@ class ChatPage extends StatelessWidget {
   ChatPage({super.key});
 
   final ScrollController controller = ScrollController();
-  List<Message> messagesList = [];
+
   @override
   Widget build(BuildContext context) {
     var email = ModalRoute.of(context)!.settings.arguments;
@@ -45,13 +44,10 @@ class ChatPage extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-            child: BlocConsumer<ChatCubit, ChatState>(
-              listener: (context, state) {
-                if (state is ChatSuccessState) {
-                  messagesList = state.messagesList;
-                }
-              },
+            child: BlocBuilder<ChatCubit, ChatState>(
               builder: (context, state) {
+                var messagesList =
+                    BlocProvider.of<ChatCubit>(context).messagesList;
                 return ListView.builder(
                   reverse: true,
                   controller: controller,
@@ -69,9 +65,12 @@ class ChatPage extends StatelessWidget {
               },
             ),
           ),
-          CustomTextFormField(
-            controller: controller,
-            email: email,
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.w),
+            child: CustomTextFormField(
+              controller: controller,
+              email: email,
+            ),
           )
         ],
       ),
