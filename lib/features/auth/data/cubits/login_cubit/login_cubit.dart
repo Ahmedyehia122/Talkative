@@ -7,6 +7,7 @@ part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(LoginInitial());
+  bool isLoading = false;
 
   signInUser(String email, String password) async {
     emit(LoginLoadingState());

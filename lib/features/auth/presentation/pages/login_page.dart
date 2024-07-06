@@ -8,7 +8,7 @@ import 'package:chat_app/core/functions/validate_text_fields.dart';
 import 'package:chat_app/core/customs/custom_button.dart';
 import 'package:chat_app/core/customs/custom_text_field.dart';
 import 'package:chat_app/features/auth/data/cubits/login_cubit/login_cubit.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:chat_app/features/chat/data/cubits/chat_cubit/chat_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,31 +17,28 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
 
-  String? email;
-
-  String? password;
-
-  bool isLoading = false;
-
-  GlobalKey<FormState> formState = GlobalKey<FormState>();
+  final GlobalKey<FormState> formState = GlobalKey<FormState>();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController padsswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state is LoginLoadingState) {
-          isLoading = true;
+          BlocProvider.of<LoginCubit>(context).isLoading;
+          BlocProvider.of<LoginCubit>(context).isLoading = true;
         } else if (state is LoginSuccessState) {
-          Navigator.of(context)
-              .pushReplacementNamed(AppRoutes.chatPage, arguments: email);
-          isLoading = false;
+          Navigator.of(context).pushReplacementNamed(AppRoutes.chatPage,
+              arguments: emailController.text);
+          BlocProvider.of<LoginCubit>(context).isLoading = false;
         } else if (state is LoginFailureState) {
           showSnackBar(context, state.errMessage);
-          isLoading = false;
+          BlocProvider.of<LoginCubit>(context).isLoading = false;
         }
       },
       builder: (context, state) => ModalProgressHUD(
-        inAsyncCall: isLoading,
+        inAsyncCall: BlocProvider.of<LoginCubit>(context).isLoading,
         child: Scaffold(
           backgroundColor: AppColors.kPrimaryColor,
           body: SafeArea(
@@ -76,22 +73,18 @@ class LoginPage extends StatelessWidget {
                     ),
                     SizedBox(height: 20.h),
                     CustomTextField(
+                      controller: emailController,
                       hintText: 'Email',
                       obscureText: false,
-                      onChanged: (p0) {
-                        email = p0;
-                      },
                       validator: (value) {
                         return validateTextFields(value!, 'email');
                       },
                     ),
                     SizedBox(height: 10.h),
                     CustomTextField(
+                      controller: padsswordController,
                       hintText: 'Password',
                       obscureText: true,
-                      onChanged: (p0) {
-                        password = p0;
-                      },
                       validator: (value) {
                         return validateTextFields(value!, 'password');
                       },
@@ -101,31 +94,11 @@ class LoginPage extends StatelessWidget {
                       buttonName: 'Sign In',
                       onTap: () async {
                         if (formState.currentState!.validate()) {
-                          BlocProvider.of<LoginCubit>(context)
-                              .signInUser(email!, password!);
-                          // isLoading = true;
-
-                          // try {
-                          //   await signInUser();
-
-                          //   Navigator.of(context).pushReplacementNamed(
-                          //       AppRoutes.chatPage,
-                          //       arguments: email);
-                          // } on FirebaseAuthException catch (e) {
-                          //   if (e.code == 'user-not-found') {
-                          //     print('No user found for that email.');
-                          //     showSnackBar(
-                          //         context, 'No user found for that email.');
-                          //   } else if (e.code == 'wrong-password') {
-                          //     print('Wrong password provided for that user.');
-                          //     showSnackBar(context,
-                          //         'Wrong password provided for that user.');
-                          //   }
-                          // } catch (e) {
-                          //   showSnackBar(context,
-                          //       'There was an error, Please try again later!');
-                          // }
-                          // isLoading = false;
+                          BlocProvider.of<ChatCubit>(context).getMessages();
+                          BlocProvider.of<LoginCubit>(context).signInUser(
+                            emailController.text,
+                            padsswordController.text,
+                          );
                         } else {}
                       },
                     ),
@@ -159,13 +132,6 @@ class LoginPage extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-
-  Future<void> signInUser() async {
-    final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: email!,
-      password: password!,
     );
   }
 }
