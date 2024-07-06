@@ -11,8 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ChatPage extends StatelessWidget {
-  static String id = 'chatPage';
-
   ChatPage({super.key});
   final CollectionReference messages =
       FirebaseFirestore.instance.collection(AppStrings.kMessagesCollection);
