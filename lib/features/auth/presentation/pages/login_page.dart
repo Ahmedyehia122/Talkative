@@ -1,10 +1,10 @@
 import 'package:chat_app/core/constants/colors.dart';
 import 'package:chat_app/core/constants/routes.dart';
-import 'package:chat_app/core/customs/custom_button.dart';
-import 'package:chat_app/core/customs/custom_logo.dart';
-import 'package:chat_app/core/customs/custom_text.dart';
-import 'package:chat_app/core/customs/custom_text_field.dart';
-import 'package:chat_app/core/customs/question_about_having_account.dart';
+import 'package:chat_app/features/auth/presentation/widgets/custom_button.dart';
+import 'package:chat_app/features/auth/presentation/widgets/custom_logo.dart';
+import 'package:chat_app/features/auth/presentation/widgets/custom_text.dart';
+import 'package:chat_app/features/auth/presentation/widgets/custom_text_field.dart';
+import 'package:chat_app/features/auth/presentation/widgets/question_about_having_account.dart';
 import 'package:chat_app/core/functions/custom_snack_bar.dart';
 import 'package:chat_app/core/functions/validate_text_fields.dart';
 import 'package:chat_app/features/auth/cubits/auth_cubit/auth_cubit.dart';

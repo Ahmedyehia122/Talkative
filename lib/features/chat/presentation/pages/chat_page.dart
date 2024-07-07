@@ -1,6 +1,6 @@
 import 'package:chat_app/core/constants/colors.dart';
-import 'package:chat_app/core/customs/custom_chat_bubble.dart';
-import 'package:chat_app/core/customs/custom_chat_bubble_for_friend.dart';
+import 'package:chat_app/features/chat/presentation/widgets/custom_chat_bubble.dart';
+import 'package:chat_app/features/chat/presentation/widgets/custom_chat_bubble_for_friend.dart';
 import 'package:chat_app/features/chat/cubits/chat_cubit/chat_cubit.dart';
 import 'package:chat_app/features/chat/presentation/widgets/custom_app_bar_logo.dart';
 import 'package:chat_app/features/chat/presentation/widgets/custom_send_message_text_field.dart';
