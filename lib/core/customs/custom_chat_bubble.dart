@@ -1,6 +1,6 @@
 import 'package:chat_app/core/constants/colors.dart';
 import 'package:chat_app/core/constants/fonts.dart';
-import 'package:chat_app/features/chat/data/models/message.dart';
+import 'package:chat_app/features/chat/models/message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

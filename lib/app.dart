@@ -1,7 +1,6 @@
 import 'package:chat_app/core/constants/routes.dart';
-import 'package:chat_app/features/auth/data/cubits/login_cubit/login_cubit.dart';
-import 'package:chat_app/features/auth/data/cubits/sign_up_cubit/sign_up_cubit.dart';
-import 'package:chat_app/features/chat/data/cubits/chat_cubit/chat_cubit.dart';
+import 'package:chat_app/features/auth/cubits/auth_cubit/auth_cubit.dart';
+import 'package:chat_app/features/chat/cubits/chat_cubit/chat_cubit.dart';
 import 'package:chat_app/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,15 +17,8 @@ class TalkativeApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, child) => MultiBlocProvider(
         providers: [
-          BlocProvider<LoginCubit>(
-            create: (context) => LoginCubit(),
-          ),
-          BlocProvider<SignUpCubit>(
-            create: (context) => SignUpCubit(),
-          ),
-          BlocProvider<ChatCubit>(
-            create: (context) => ChatCubit(),
-          ),
+          BlocProvider<AuthCubit>(create: (context) => AuthCubit()),
+          BlocProvider<ChatCubit>(create: (context) => ChatCubit()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
